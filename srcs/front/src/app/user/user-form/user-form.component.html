@@ -1,0 +1,52 @@
+<form *ngIf="user" (ngSubmit)="onSubmit()" #userForm="ngForm">
+	<div class="row">
+	  <div class="col s4 offset-m4">
+		<div class="card-panel">
+
+		  <!-- In game name -->
+		  <div class="form-group">
+			<label for="name">In Game Name</label>
+			<input type="text" class="form-control"
+					required
+					pattern="^[a-zA-Z0-9àéèç]{1,25}$"
+				   [(ngModel)]="this.temp_user" name="name"
+				   #name="ngModel">
+
+			<div [hidden]="name.valid || name.pristine"
+				  class="card-panel red accent-1">
+				  Name is required (1-25 characters).
+			</div>
+			{{error}}
+		  </div>
+
+		  <!-- 2FA config -->
+			<div class="divider"></div>
+				<div class="section center">
+				<a (click)="switch2FA()"
+				class="waves-effect waves-light btn"  *ngIf="user.value.two_factor == false">
+				Setup 2FA</a>
+				<a (click)="unswitch2FA()"
+				class="waves-effect waves-light btn" *ngIf="user.value.two_factor == true">
+				Remove 2FA</a>
+				</div>
+
+		  <div class="divider"></div>
+		  <div class="section center">
+			<a (click)="upload()"
+			  class="waves-effect waves-light btn">
+
+			  Upload an image</a>
+		  </div>
+
+		  <!-- Submit button -->
+		  <div class="divider"></div>
+		  <div class="section center">
+			<button type="submit"
+			  class="waves-effect waves-light btn"
+			  [disabled]="!userForm.form.valid">
+			  Submit</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </form>

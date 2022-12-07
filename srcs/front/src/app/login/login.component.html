@@ -1,0 +1,7 @@
+<div class='row' >
+    <div class="center-align">
+		<div style="height: 250px; margin:0 auto;"></div>
+        <a (click)="login()" class="waves-effect waves-light btn z-depth-3" *ngIf="!authService.isLoggedIn">Connect with the 42 API</a>
+		<a (click)="logout()" class="waves-effect waves-light btn z-depth-3"  *ngIf="authService.isLoggedIn">Disconnect</a>
+	</div>
+</div>

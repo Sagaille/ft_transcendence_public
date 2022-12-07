@@ -1,0 +1,14 @@
+
+	<div class="center-align">
+		<img [src]="getLinkPicture(this.user.value.avatar)" class="img-responsive">
+	</div>
+
+<div class="center-align">
+<label class="image-upload-container btn btn-bwm">
+  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  <input class="center-align" #imageInput
+         type="file"
+         accept="image/png, image/jpg, image/jpeg"
+         (change)="processFile(imageInput)">
+</label>
+</div>

@@ -1,0 +1,15 @@
+<div class="chat_background_header"></div>
+<div class="chat_background_body"></div>
+
+<div class="chat_container">
+  <app-sidebar [roomsObs]="rooms$" (roomClicked)="onRoomSelected($event)"></app-sidebar>
+  <div id="chat">
+    <div id="chatPlaceholder" *ngIf="!(selectedRoom$| async)">
+      <img width="200" src="../../../../assets/42_Logo.svg.png"/>
+      <h2>Start a DM with your friends or go find a chatroom!</h2>
+    </div>
+    <app-chat-room *ngIf="(selectedRoom$| async)" [selectedRoom]="(selectedRoom$ | async)!" ></app-chat-room>
+
+  </div>
+
+</div>

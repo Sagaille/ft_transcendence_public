@@ -1,0 +1,23 @@
+<div id="displayUserList" style="padding: 5px;">
+    <div *ngFor="let u of this.selectedRoom.users">
+      <mat-card class="userCard" style="background: #36474f; color: #fff;">
+        
+        <img mat-card-avatar src={{getUserProfileImg(u)}} (click)="goToUserProfile(u)"
+          matTooltip="Visit profile" [matTooltipPosition]="'above'" matTooltipHideDelay="100">
+        <mat-card-title>{{ u.username + " | " + u.ingame_name }}</mat-card-title>
+        <mat-card-subtitle>{{formatUserTitles(u)}}</mat-card-subtitle>
+        <mat-card-actions *ngIf="u.id != this.user.value.id">
+
+          <button mat-button (click)="giveAdminRight(u)" [disabled]="!isAdmin(this.user.value) || isAdmin(u)">Make Admin</button>
+          
+          <button mat-button (click)="toggleMuteUser(u)" [disabled]="!isAdmin(this.user.value)">{{getMuteStatus(u)}}</button>
+          
+          <button mat-button (click)="toggleBlockUser(u)">{{getBlockActionStatus(u)}}</button>
+          
+          <button mat-button (click)="banUser(u)" [disabled]="!isAdmin(this.user.value) || isChannelOwner(u)">Ban from chat</button>
+        
+        </mat-card-actions>	
+      </mat-card>
+      <mat-divider></mat-divider>
+    </div>
+  </div>

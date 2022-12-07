@@ -1,0 +1,76 @@
+<div id="sidebar">
+  <div id="row1">
+    <div id="sidebarHeader">
+      <div class="avatarContainer">
+        <img *ngIf="getUserProfile() != 'null'" [src]="getUserProfile()" (click)="goMyProfileUrl()"
+            matTooltip="Visit profile" [matTooltipPosition]="'above'" matTooltipHideDelay="100"/>
+      </div>
+
+      <div class="actionContainer">
+        <div class="actionIcon">
+          <a [routerLink]="['./']" matTooltip="Reload"
+            [matTooltipPosition]="'above'" matTooltipHideDelay="100">
+            <img src="../../../../assets/chat/statusIcon.svg" />
+          </a>
+        </div>
+
+        <div class="actionIcon" style="padding-left: 15px;">
+          <a class="addDirectMessage"matTooltip="Add DM"
+            [matTooltipPosition]="'above'" matTooltipHideDelay="100"
+            (click)="addDirectMessageDialog()">
+            <img src="../../../../assets/chat/icons8-new-message-48.png" />
+          </a>
+        </div>
+        
+        <div class="actionIcon" style="margin-bottom: 2px; padding-left: 15px;">
+          <a class="findChatroom" [routerLink]="['../find-chatroom']" matTooltip="Find chat room"
+            [matTooltipPosition]="'above'" matTooltipHideDelay="100">
+            <img src="../../../../assets/chat/icons8-search-in-list-50.png" />
+          </a>
+        </div>
+        
+        <div class="actionIcon" style="padding-left: 20px;">
+          <a class="addChatroom" [routerLink]="['../create-room']" matTooltip="Create chat room"
+            [matTooltipPosition]="'above'" matTooltipHideDelay="100">
+            <img src="../../../../assets/chat/icons8-create-32.png" />
+          </a>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div id="searchBox">
+      <img width="19" src="../../../../assets/chat/searchIcon.png" />
+      <input [(ngModel)]="searchText" type="text" placeholder="Search from chat" />
+    </div>
+
+    <div id="sidebarContent">
+      <!-- <div id="noConversations">All chats are archived</div> -->
+
+      <div class="conversation" *ngFor="let room of !searchText ? rooms : filteredRooms"
+        (click)="roomClicked.emit(room)">
+        <div class="picture">
+          <img src={{getChatRoomPicture(room)}} />
+        </div>
+        <div class="content">
+          <div class="conversationHeader">
+            <div class="name">
+              <p> {{formatChatRoomName(room)}} </p>
+            </div>
+            <div class="time" *ngIf="room.messages && room.messages.length > 0">
+              {{ convertTime(room.messages![room.messages!.length - 1].createdAt!) }}
+            </div>
+          </div>
+          
+          <!-- <div class="messagePreview" *ngIf="room.messages && room.messages.length > 0">
+            <img *ngIf="true" src="../../../../assets/chat/doubleTick.svg" />
+            <img *ngIf="false" src="../../../../assets/chat/doubleTickBlue.svg" />
+            {{ room.messages[room.messages.length - 1].text }}
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

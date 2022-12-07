@@ -1,0 +1,17 @@
+<!-- Messages -->
+<div *ngFor="let message of (messagesPaginate$ | async)?.items">
+
+  <div #messages class="message" *ngIf="!isUserBlocked(message.user!)"
+    [ngClass]="{ me: message.user_id == this.user.value.id }">
+
+
+    <div class="userName" *ngIf="message.user_id != this.user.value.id">
+      {{ message.user?.ingame_name }}
+    </div>
+    <div class="messageContent">
+      {{ message.text }}
+      <div class="time"> {{ convertTime(message.updatedAt!) }} </div>
+
+    </div>
+  </div>
+</div>

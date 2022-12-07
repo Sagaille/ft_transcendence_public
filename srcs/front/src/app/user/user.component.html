@@ -1,0 +1,46 @@
+	<div class="col s12 m8 offset-m2">
+	<p></p>
+	<h1 class="right-align"> Welcome {{ user.value.username }} &nbsp;<a (click)="update_user()" class="waves-effect waves-light btn">Update</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+	<div class="card horizontal hoverable">
+	  <div class="card-image">
+		<img *ngIf="this.user.value.avatar != 'null'" [src]="this.user.value.avatar"/>
+	  </div>
+	  <div class="card-stacked">
+		<div class="card-content">
+		  <table class="bordered striped">
+			<tbody>
+			  <tr>
+				<td>In game name</td>
+				<td><strong>{{ user.value.ingame_name }}</strong></td>
+			  </tr>
+			  <tr>
+				<td>Wins</td>
+				<td><strong>{{ user.value.wins }}</strong></td>
+			  </tr>
+			  <tr>
+				<td>Losses</td>
+				<td><strong>{{ user.value.losses }}</strong></td>
+			  </tr>
+			  <tr>
+				<td>Ladder rank</td>
+				<td><strong>{{ ranks() }}</strong></td>
+			  </tr>
+			  <tr>
+				<td>2FA</td>
+				<td><strong>{{ user.value.two_factor }}</strong></td>
+			  </tr>
+			  <tr>
+				<td><a (click)="match_history_route()" class="waves-effect waves-light btn">Match History</a></td>
+				<td><strong></strong></td>
+			  </tr>
+			  <tr>
+				<td><a (click)="friends_route()" class="waves-effect waves-light btn">Friends</a></td>
+				<td><strong>				</strong></td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+		</div>
+	  </div>
+	</div>
+

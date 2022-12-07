@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.chat_background_header {
+  width: 100%;
+  height: 20vh;
+  background-color: #019688;
+}
+
+.chat_background_body {
+  height: 80vh;
+  background: #e0e0e0;
+}
+
+.chat_container {
+  position: fixed;
+  top: 8%;
+  bottom: 0%;
+  margin: auto;
+  width: 70%;
+  height: 90%;
+  background-color: #fff;
+  right: 0px;
+  left: 0px;
+  box-shadow: -1px 1px 5px rgba(#333, 0.2);
+  border-radius: 3px;
+
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}

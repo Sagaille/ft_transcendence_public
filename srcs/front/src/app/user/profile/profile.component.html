@@ -1,0 +1,57 @@
+<div class="col s12 m8 offset-m2">
+	<p></p>
+	<h1 class="right-align"> 42 name: {{ username }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+	<div class="card horizontal hoverable">
+	  <div class="card-image">
+		<img *ngIf="avatar != 'null'" [src]="avatar"/>
+	  </div>
+	  <div class="card-stacked">
+		<div class="card-content">
+		  <table class="bordered striped">
+			<tbody>
+			  <tr>
+				<td>In game name</td>
+				<td><strong>{{ ingame_name }}</strong></td>
+			  </tr>
+			  <tr>
+				<td>Wins</td>
+				<td><strong>{{ wins }}</strong></td>
+			  </tr>
+			  <tr>
+				<td>Losses</td>
+				<td><strong>{{ losses }}</strong></td>
+			  </tr>
+			  <tr>
+				<td>Ladder lvl</td>
+				<td><strong>{{ ranks() }}</strong></td>
+			  </tr>
+			  <tr>
+				<td>Status</td>
+				<td><strong>{{ status }}</strong></td>
+			  </tr>
+			  <tr>
+				<td><a (click)="match_history_route(username_non_null)" class="waves-effect waves-light btn">Match History</a></td>
+				<td><strong></strong></td>
+			</tr>
+
+			  <tr>
+				<td *ngIf="get_user"><a (click)="toggleBlockUser(get_user)" class="waves-effect waves-light btn">{{getBlockActionStatus(public_user)}}</a></td>
+				<td><strong></strong></td>
+			</tr>
+
+			  <tr>
+				<td><a (click)="add_friend(username_non_null)" class="waves-effect waves-light btn" *ngIf="!is_friend(username_non_null)">Add Friend</a>
+				<a (click)="remove_friend(username_non_null)" class="waves-effect waves-light btn" *ngIf="is_friend(username_non_null)">Remove Friend</a></td>
+				<td><strong>				</strong></td>
+			  </tr>
+			  <tr *ngIf="status == 'playing'">
+				<td><a (click)="spectatePlayer(username_non_null)" class="waves-effect waves-light btn">Spectate {{ public_user.username }}</a></td>
+				<td><strong></strong></td>
+			  </tr>
+			</tbody>
+		  </table>
+		</div>
+		</div>
+	  </div>
+	</div>
+

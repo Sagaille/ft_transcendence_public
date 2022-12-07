@@ -1,0 +1,15 @@
+<div mat-dialog-content>
+    <p>Please choose how long you want to mute the user </p>
+    <mat-form-field appearance="fill">
+      <mat-label>set time</mat-label>
+      <mat-select  [(value)]="data.selectedValue">
+        <mat-option *ngFor="let option of data.options" [value]="option.value">
+          {{ option.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.selectedValue" cdkFocusInitial>Submit</button>
+  </div>

@@ -1,0 +1,98 @@
+<div style="text-align: center; background-color:rgba(89, 199, 171, 0.5);">
+	<h1>Spectate Any Game!</h1>
+	<div>
+		<div>
+			<canvas #board class="game-board" [hidden]="user.value.status=='online'"></canvas>
+		</div>
+		<div class="right-column" *ngIf="user.value.status=='online'">
+			<ul>
+				<li *ngFor="let game of gameList">
+					{{game.player1.user.ingame_name}} VS
+					{{game.player2.user.ingame_name}} |
+					{{ game.player1.score }} : {{ game.player2.score }} |
+					Game n• {{ game.id }}
+					<button (click)="specGame(game.id)">Spectate</button>
+				</li>
+			</ul>
+		</div>
+		<button *ngIf="user.value.status=='online'" class="waves-effect waves-light btn z-depth-3"
+			(click)="getList()">Refresh</button>
+		<button *ngIf="user.value.status=='spectate'" class="waves-effect waves-light btn z-depth-3"
+			(click)="quitSpec()">Quit Spectator Mode</button>
+	</div>
+
+	<div *ngIf="!game" style="text-align: center;">
+		<div class="card">
+			<div>
+				<img style="max-width: 45px; height: auto;" src="{{user.value.avatar }}" class="circle responsive-img">
+				<span class="card-title">{{ user.value.ingame_name }}</span>
+			</div>
+			<div class="card-content">
+				<p>Player status: {{ user.value.status }}</p>
+				<p>Wins: {{ user.value.wins }}</p>
+				<p>Losses: {{ user.value.losses }}</p>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="game">
+		<div class="row" *ngIf="user.value.status=='spectate'">
+			<div class="col s12 m6">
+				<div class="card">
+					<div>
+						<img style="max-width: 45px; height: auto;" src="{{game.player1.user.avatar }}"
+							class="circle responsive-img">
+						<span class="card-title">{{ game.player1.user.ingame_name }}</span>
+					</div>
+					<div class="card-content">
+						<p>Player status: {{ game.player1.user.status }}</p>
+						<p>Wins: {{ game.player1.user.wins }}</p>
+						<p>Losses: {{ game.player1.user.losses }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col s12 m6">
+				<div class="card">
+					<div>
+						<img style="max-width: 45px; height: auto;" src="{{game.player2.user.avatar }}"
+							class="circle responsive-img">
+						<span class="card-title">{{ game.player2.user.ingame_name }}</span>
+					</div>
+					<div class="card-content">
+						<p>Player Status: {{ game.player2.user.status }}</p>
+						<p>Wins: {{ game.player2.user.wins }}</p>
+						<p>Losses: {{ game.player2.user.losses }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="user.value.status=='spectate'" style="text-align: center;">
+			<div class="card">
+				<div>
+					<img style="max-width: 45px; height: auto;" src="{{user.value.avatar }}"
+						class="circle responsive-img">
+					<span class="card-title">{{ user.value.ingame_name }}</span>
+				</div>
+				<div class="card-content">
+					<p>Player status: {{ user.value.status }}</p>
+					<p>Wins: {{ user.value.wins }}</p>
+					<p>Losses: {{ user.value.losses }}</p>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="user.value.status=='online'" style="text-align: center;">
+			<div class="card">
+				<div>
+					<img style="max-width: 45px; height: auto;" src="{{user.value.avatar }}"
+						class="circle responsive-img">
+					<span class="card-title">{{ user.value.ingame_name }}</span>
+				</div>
+				<div class="card-content">
+					<p>Player status: {{ user.value.status }}</p>
+					<p>Wins: {{ user.value.wins }}</p>
+					<p>Losses: {{ user.value.losses }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

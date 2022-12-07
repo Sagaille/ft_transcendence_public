@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  project-service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./srcs:/srcs
+    ports:
+      - 3000:3000
+    depends_on:
+      - dev-db
+
+  dev-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - 5434:5432
+
+  front:
+    build:
+      context: ./srcs/front
+      dockerfile: ./Dockerfile
+    ports:
+      - 4200:4200

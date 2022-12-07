@@ -1,0 +1,29 @@
+script to restart db and migrate auto:
+	in json:
+
+	"prisma:dev:deploy": "prisma migrate deploy",
+    "db:dev:rm": "docker-compose rm -s -f -v dev-db ",
+    "db:dev:up": "docker-compose up  -d dev-db",
+    "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up && sleep 1 && npm run prisma:dev:deploy",
+    
+    in case of schema changes or problem: "npx prisma db push"
+    
+    launch api: "npm run start:dev"
+
+https://youtu.be/GHTA143_b-s?t=4975
+
+
+JWT:
+
+It’s important to understand that JWT isn’t here to hide our data, it’s here to prove that the data was created by us.
+
+
+Route of the auth:
+front : login.component.html : login() -> authService.login() -> get request on back (http://localhost:3000/auth/oauth_page)
+back : auth.controller.ts at @Get('/oauth_page') redirects to the Api which authenticates the user then redirects to the front.
+front : redirection from the api to logging.components.ts which on Init sends the access token to the back via post at /auth/access_token
+back : check if new user, if new, get the info on api.
+
+// When encountering an issue with prisma or prisma studio, try "npx prisma db push"
+
+get access to db studio: npx prisma studio

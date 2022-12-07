@@ -1,0 +1,27 @@
+<mat-form-field>
+    <input type="text" placeholder="Search User By Username" matInput [formControl]="searchUsername"
+        [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+        (optionSelected)="setSelectedUser($event.option.value)">
+        <ng-container>
+            <!--- to display stuff -->
+            <mat-option *ngFor="let user of filteredUsers" [value]="user">
+                <span>{{user.username}}</span>
+                <small> | pseudo: {{user.ingame_name}} </small>
+            </mat-option>
+        </ng-container>
+    </mat-autocomplete>
+</mat-form-field>
+<!-- disable Add User button if selectedUser is empty-->
+<button mat-button type="button" [disabled]="!selectedUser" (click)="addUserToForm()">Add User</button>
+
+<mat-chip-list *ngIf="users.length > 0; else no_users">
+    <mat-chip *ngFor="let user of users" (removed)="removeUserFromForm(user)">
+        {{user.username}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+</mat-chip-list>
+
+<ng-template #no_users>
+    <mat-error>No Users added so far</mat-error>
+</ng-template>

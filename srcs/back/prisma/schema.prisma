@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// When encountering an issue with studio, try "npx prisma db push"
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+
+	id                  Int				@id @default(autoincrement())
+	username            String			@unique
+	avatar              String
+	ingame_name         String			@unique
+	wins                Int
+	losses              Int
+	ladder_lvl          Int
+	match_history       String[]
+	two_factor          Boolean
+	friends             String[]
+	status				String
+	email				String			@unique
+
+	rooms				Room[]			@relation(name: "Users")			// ManyToMany
+	admin_of_room		Room[]			@relation(name: "AdminUsers")		// ManyToMany
+	created_room		Room[]												// OneToMany
+	messages			Message[]
+	joined_rooms        JoinedRoom[]
+
+	ownerRoom			Room[]			@relation(name: "roomOwner")	// List of rooms which user is owner of
+	blockedByUsers		User[]			@relation(name: "UserBlock")	// List of other users which is blocking user
+	blockingUsers		User[]			@relation(name: "UserBlock")	// List of other users which user blocked
+	mutedRooms			MutedRoom[]		// rooms in which user is muted by an Admin
+	bannedRooms			Room[]			@relation(name: "BannedUsers")		// list of rooms in which user is banned by an admin
+	
+	connections         ConnectedUser[]
+	createdAt			DateTime    	@default(now()) @map(name: "created_at")
+	updatedAt			DateTime    	@updatedAt @map(name: "updated_at")
+}
+
+model Room {
+	id 					Int         	@id @default(autoincrement())
+	name				String
+	description 		String?
+	type				String      	@default("public")
+	password			String?
+	users				User[]			@relation(name: "Users")			// ManyToMany
+	adminUsers			User[] 			@relation(name: "AdminUsers")		// ManyToMany
+	bannedUsers			User[]			@relation(name: "BannedUsers")
+	ownedByUserId		Int
+	ownedByUser			User			@relation(name: "roomOwner", fields: [ownedByUserId], references: [id])
+	mutedUsers        	MutedRoom[]										// OneToMany
+	joined_users        JoinedRoom[]									// OneToMany
+	messages			Message[]										// OneToMany
+	createdById			Int
+	createdBy			User			@relation(fields: [createdById], references: [id])	// OneToMany
+	createdAt			DateTime    	@default(now()) @map(name: "created_at")
+	updatedAt			DateTime    	@updatedAt @map(name: "updated_at")
+}
+
+model Message {
+	id 					Int				@id @default(autoincrement())
+	text				String
+	user_id				Int
+	user				User			@relation(fields: [user_id], references: [id])	// OneToMany
+	room_id				Int
+	room				Room			@relation(fields: [room_id], references: [id]) // OneToMany
+	createdAt			DateTime    	@default(now()) @map(name: "created_at")
+	updatedAt			DateTime    	@updatedAt @map(name: "updated_at")
+}
+
+model JoinedRoom {
+	id 					Int				@id @default(autoincrement())
+	socketId           	String			@map(name: "socket_id")
+	user_id             Int
+	user				User			@relation(fields: [user_id], references: [id])	// OneToMany
+	room_id				Int
+	room				Room			@relation(fields: [room_id], references: [id]) // OneToMany
+}
+
+model ConnectedUser {
+	id                  Int				@id @default(autoincrement())
+	socketId          	String			@unique @map(name: "socket_id")					// cannot have multiple users on the same socketId
+	user_id             Int
+	user				User			@relation(fields: [user_id], references: [id])	// OneToMany
+}
+
+model MutedRoom {
+	id                  Int				@id @default(autoincrement())
+	mutedUserId         Int
+	mutedUser			User			@relation(fields: [mutedUserId], references: [id])	// OneToMany
+	roomId				Int
+	room				Room			@relation(fields: [roomId], references: [id]) // OneToMany
+	createdAt			DateTime    	@default(now()) @map(name: "created_at")
+	endAt				DateTime
+}

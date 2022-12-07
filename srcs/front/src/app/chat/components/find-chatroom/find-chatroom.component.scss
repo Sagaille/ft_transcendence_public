@@ -1,0 +1,62 @@
+.container {
+  position: fixed;
+  top: 8%;
+  bottom: 0%;
+  margin: auto;
+  width: 70%;
+  height: 90%;
+  right: 0px;
+  left: 0px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  
+    mat-card {
+      margin: 20px;
+
+      .find-chat-header {
+        display: flex; 
+        flex-direction: row;
+        
+        .title {
+          width:70%;
+          justify-content: left;
+          margin-left: 15px;
+        }
+        .actionIcon {
+          flex-grow: 1;
+          justify-content: flex-end;
+          display: flex;
+          margin-right: 20px;
+        }
+      }
+
+      .rooms {
+        height: 500px;
+        width: 250;
+        overflow-y: scroll;
+        /* Only for FireFox. For else, the settings below apply to scollbar*/
+        scrollbar-color: darkgrey lightgrey;
+        scrollbar-width: thin;
+
+        .room {
+          flex-direction: row;
+
+          // .actionIcon {
+          //   flex-grow: 1;
+          //   justify-content: end;
+          //   display: flex;
+          //   margin-right: 20px;
+          // }
+        }
+      }
+      
+      .chatroom {
+        margin-left: 40px;
+        width: 600px;
+      }
+    }
+    
+  }
+  

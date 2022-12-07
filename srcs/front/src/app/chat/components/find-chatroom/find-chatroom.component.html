@@ -1,0 +1,62 @@
+<div class="chat_background_header"></div>
+<div class="chat_background_body"></div>
+<div class="container">
+  <mat-card style="position: fixed;">
+    <div style="display:flex; flex-direction:row;">
+      <div>
+
+        <div class="find-chat-header">
+          <div class="title">
+            <h2>List of Chatrooms</h2>
+          </div>
+          <div class="actionIcon">
+            <a [routerLink]="['../dashboard']" matTooltip="Dashboard"
+            [matTooltipPosition]="'above'" matTooltipHideDelay="100">
+              <img src="../../../../assets/chat/icons8-chat-32.png" />
+            </a>
+            <a [routerLink]="['../create-room']" matTooltip="Create chat room"
+              [matTooltipPosition]="'above'" matTooltipHideDelay="100"
+              style="padding-left: 20px;">
+              <img src="../../../../assets/chat/icons8-create-32.png" />
+            </a>
+          </div>
+        </div>
+
+        <div class="rooms" *ngIf="(rooms$ | async)?.items?.length! > 0; else no_rooms">
+          <mat-selection-list [multiple]="false" (selectionChange)="onSelectRoom($event)">
+            <mat-list-option *ngFor="let room of (rooms$ | async)?.items" [value]="room">
+              <p> Room: {{room.name}} </p>
+              <mat-divider></mat-divider>
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+
+      </div>
+
+      <!-- selected room gets displayed with details and join prompt depending on type of chatRoom -->
+      <div *ngIf="selectedRoom != undefined" class="selectedRoom">
+        <mat-card>
+          <div class="selectedRoomHeader">
+            <mat-card-title> {{ selectedRoom.name }} </mat-card-title>
+            <mat-card-content>{{ selectedRoom.description }}</mat-card-content>
+            <mat-card-actions style="display: flex; justify-content: center;">
+              <button *ngIf="selectedRoom.type == 'protected'" mat-raised-button (click)="joinRoomDialog()">Join</button>
+              <button *ngIf="selectedRoom.type != 'protected'" mat-raised-button (click)="joinChatRoom()">Join</button>
+            </mat-card-actions>
+          </div>
+          <div class="selectedRoomContent">
+          </div>
+        </mat-card>
+      </div>
+
+    </div>
+    
+  </mat-card>
+
+</div>
+
+<ng-template #no_rooms>
+  <div>
+    <mat-error>No Chatrooms for you so far, please create one or get invited.</mat-error>
+  </div>
+</ng-template>

@@ -1,0 +1,26 @@
+	<div>
+	<tr>
+		<td></td>
+		<td><strong>				</strong></td>
+	</tr>
+	</div>
+	<h2 class="center-align"> {{ ingame_name }}'s rank</h2>
+	<div class="center-align">
+		Number {{ ranks() }} with {{ wins }} wins accross {{ this.playermax }} players! Well done!
+	</div>
+	<div>
+	<tr>
+		<td></td>
+		<td><strong>				</strong></td>
+	</tr>
+	</div>
+	<h2 class="center-align"> {{ ingame_name }}'s match history</h2>
+	<tr>
+	</tr>
+	<div class="center-align">
+		<p *ngFor="let matches of match_history">
+		<a> {{ matches }} </a>
+		</p>
+	</div>
+
+

@@ -1,0 +1,45 @@
+<div>
+    <mat-card>
+        <div>
+            <div mat-dialog-content>
+                <mat-card-title> {{ "Find a user to DM" }} </mat-card-title>
+                <mat-card-actions style="display: flex; justify-content: center;">
+                    <mat-form-field>
+                        <input matInput type="text" 
+                            placeholder="Search User By Username"
+                            [formControl]="searchUsername"
+                            [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                            (optionSelected)="setSelectedUser($event.option.value)">
+                            <mat-option *ngFor="let user of filteredUsers" [value]="user">
+                                <span>{{user.username}}</span>
+                                <small> | pseudo: {{user.ingame_name}} </small>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    
+                </mat-card-actions>
+            </div>
+
+            <mat-chip-list *ngIf="this.selectedUser != null; else no_user" style="display: flex; justify-content: center;">
+                <mat-chip (removed)="clearSelectedUser()">
+                    {{this.selectedUser.username}}
+                    <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                </mat-chip>
+            </mat-chip-list>
+            
+            <div mat-dialog-actions>
+                <button mat-button (click)="onNoClick()">Go Back</button>
+                <button mat-button [disabled]="!selectedUser" [mat-dialog-close]="this.selectedUser">Submit</button>
+            </div>
+
+            <ng-template #no_user>
+                <mat-error>Please choose a user</mat-error>
+            </ng-template>
+        </div>
+    </mat-card>
+</div>
+

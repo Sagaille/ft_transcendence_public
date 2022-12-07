@@ -1,0 +1,12 @@
+<div>
+	<tr>
+		<td></td>
+		<td><strong>				</strong></td>
+	</tr>
+</div>
+<div class="center-align"> <h2> NOT YET YOUR FRIENDS! </h2> 
+	<p *ngFor="let users of this.all_users">
+	<a (click)="go_to_userprofile(users)" class="waves-effect waves-light btn blue hoverable" *ngIf="this.user.value.username != users.username && !is_friend(users.username)"> {{ users.ingame_name }} </a>
+	<a *ngIf="this.user.value.username != users.username && !is_friend(users.username)"> &nbsp;&nbsp; {{  users.status }} </a>
+	</p>
+</div>

@@ -1,0 +1,71 @@
+<div id="container" *ngIf="this.selectedRoom">
+  <!-- Header -->
+  <div id="header">
+    <div class="actionContainer">
+      <div class="avatarSection" *ngIf="this.selectedRoom">
+        <div class="nameSection">{{formatChatRoomName(this.selectedRoom)}}</div>
+      </div>
+
+      <div class="optionMenu">
+        <mat-flat-button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </mat-flat-button>
+        <mat-menu #menu="matMenu">
+          
+          <!--- Toggle based on boolean condition to show either one of the button -->
+          <mat-flat-button mat-menu-item  *ngIf="this.openUserList == false" (click)="displayUserList()">
+            <mat-icon>people</mat-icon>
+            <span>People</span>
+          </mat-flat-button>
+          
+          <mat-flat-button mat-menu-item  *ngIf="this.openUserList == true" (click)="hideUserList()">
+            <mat-icon>group_off</mat-icon>
+            <span>Hide People</span>
+          </mat-flat-button>
+          
+          <mat-flat-button mat-menu-item (click)="inviteToPlay()" *ngIf="selectedRoom && selectedRoom.type == 'directMessage'">
+            <mat-icon>videogame_asset</mat-icon>
+
+            <span>Invite to play</span>
+
+          </mat-flat-button>
+          
+          <mat-flat-button mat-menu-item (click)="spectateUser()" *ngIf="selectedRoom && selectedRoom.type == 'directMessage'">
+            <mat-icon>tv</mat-icon>
+
+            <span>Spectate</span>
+
+          </mat-flat-button>
+          
+          <mat-flat-button mat-menu-item (click)="leaveChatRoom()">
+            <mat-icon>logout</mat-icon>
+            <span>Leave Room</span>
+          </mat-flat-button>
+
+          <mat-flat-button mat-menu-item (click)="openChatOption()" *ngIf="selectedRoom && selectedRoom.type != 'directMessage' && isChannelOwner()">
+            <mat-icon>settings</mat-icon>
+            <span>Modify ChatRoom</span>
+          </mat-flat-button>
+
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+
+  <app-display-user-list *ngIf="this.openUserList == true && this.selectedRoom"
+    [selectedRoom]="selectedRoom"
+    [adminList]="adminList"
+    ></app-display-user-list>
+
+  <div id="body">
+    <app-chat-message [messagesPaginate$]="messagesPaginate$"></app-chat-message>
+  </div>
+
+
+  <!-- Footer -->
+  <div id="footer">
+    <div id="textarea">
+      <textarea [(ngModel)]="chatMessage" (keyup.enter)="submitMessage($event)"></textarea>
+    </div>
+  </div>
+</div>

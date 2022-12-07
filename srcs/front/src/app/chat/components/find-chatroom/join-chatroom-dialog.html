@@ -1,0 +1,18 @@
+<div mat-dialog-content>
+  <p>Please enter the password to join a protected chatroom</p>
+  <mat-form-field appearance="fill">
+    <mat-label>password</mat-label>
+    <input matInput 
+      placeholder="password"
+      [type]="data.hide ? 'password' : 'text'"
+      [(ngModel)]="data.passwordInput"
+      required>
+    <mat-icon matSuffix (click)="data.hide = !data.hide">
+      {{data.hide ? 'visibility_off' : 'visibility'}}
+    </mat-icon>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Go Back</button>
+  <button mat-button [mat-dialog-close]="data.passwordInput" cdkFocusInitial>Submit</button>
+</div>

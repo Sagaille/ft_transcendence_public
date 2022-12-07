@@ -1,0 +1,98 @@
+<div style="text-align: center; background-color:rgba(89, 199, 171, 0.5);">
+	<h1>PONG!</h1>
+	<div>
+		<div>
+			<canvas #board class="game-board" [hidden]=!game></canvas>
+		</div>
+		<button *ngIf="user.value.status!='playing'" class="waves-effect waves-light btn z-depth-3"
+			(click)="joinQueue()">Start Matchmaking</button>
+		<button *ngIf="user.value.status!='playing'" class="waves-effect waves-light btn z-depth-3"
+			(click)="quitQueue()">Quit Matchmaking</button>
+	</div>
+
+	<div *ngIf="!game" style="text-align: center;">
+		<div class="card">
+			<div>
+				<img style="max-width: 45px; height: auto;" src="{{user.value.avatar }}" class="circle responsive-img">
+				<span class="card-title">{{ user.value.ingame_name }}</span>
+			</div>
+			<div class="card-content">
+				<p>Player status: {{ user.value.status }}</p>
+				<p>Wins: {{ user.value.wins }}</p>
+				<p>Losses: {{ user.value.losses }}</p>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="game">
+		<div class="row">
+			<div class="col s12 m6">
+				<div class="card">
+					<div>
+						<img style="max-width: 45px; height: auto;" src="{{game.player1.user.avatar }}"
+							class="circle responsive-img">
+						<span class="card-title">{{ game.player1.user.ingame_name }}</span>
+					</div>
+					<div class="card-content">
+						<p *ngIf="game.player1.user.username == user.value.username" >Player status: {{ user.value.status }}</p>
+						<p *ngIf="game.player1.user.username != user.value.username" >Player status: {{ game.player1.user.status }}</p>
+						<p>Wins: {{ game.player1.user.wins }}</p>
+						<p>Losses: {{ game.player1.user.losses }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col s12 m6">
+				<div class="card">
+					<div>
+						<img style="max-width: 45px; height: auto;" src="{{game.player2.user.avatar }}"
+							class="circle responsive-img">
+						<span class="card-title">{{ game.player2.user.ingame_name }}</span>
+					</div>
+					<div class="card-content">
+						<p *ngIf="game.player2.user.username == user.value.username" >Player status: {{ user.value.status }}</p>
+						<p *ngIf="game.player2.user.username != user.value.username" >Player status: {{ game.player2.user.status }}</p>
+						<p>Wins: {{ game.player2.user.wins }}</p>
+						<p>Losses: {{ game.player2.user.losses }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="user.value.status!='playing'">
+		<p>Game settings:</p>
+
+		<div>
+			<input #Player1PaddleHeight type="range" id="P1Pad" name="P1PadSize" min="5" max="200" step="5"
+				[defaultValue]="60">
+			<label for="P1Pad">
+				<h5><b>Player 1 paddle Size</b></h5>
+			</label>
+		</div>
+
+		<div>
+			<input #Player2PaddleHeight type="range" id="P2Pad" name="P2PadSize" min="5" max="200" step="5"
+				[defaultValue]="60">
+			<label for="P2Pad">
+				<h5><b>Player 2 paddle Size</b></h5>
+			</label>
+		</div>
+
+		<div>
+			<input #BallRadius type="range" id="ball" name="ballsize" min="5" max="100" step="5" [defaultValue]="10">
+			<label for="ballsize">
+				<h5><b>Ball Radius</b></h5>
+			</label>
+		</div>
+
+		<div>
+			<input #WinningScore id="winningScore" name="winningScore" min="1" max="20" step="1" [defaultValue]="10">
+			<label for="WS">
+				<h5><b>Winning Score : {{ WinningScore.value }}</b></h5>
+			</label>
+		</div>
+
+		<button *ngIf="user.value.status!='playing'" class="waves-effect waves-light btn z-depth-3"
+			(click)="startCustom()">Start Custom</button>
+	</div>
+</div>

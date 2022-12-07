@@ -1,0 +1,40 @@
+.message {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #767676;
+
+  .messageContent {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+    white-space: normal;
+
+    .userName {
+      font-weight: bold;
+      font-size: 12px;
+      border-radius: 5px;
+      padding: 10px;
+      max-width: 60%;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+
+    .time {
+      text-align: right;
+      color: #959698;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+  }
+
+  &.me {
+    align-items: flex-end;
+    .messageContent {
+      background-color: #dcf7c5;
+    }
+  }
+}
